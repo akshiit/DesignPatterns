@@ -1,0 +1,163 @@
+*******DeoObservable.java**
+
+
+package ObserverDesignPattern.Observable;
+import ObserverDesignPattern.Observer.IObserver;
+import java.lang.*;
+import java.util.*;
+public class DeoObservable implements IObservable{
+    List<IObserver> list=new ArrayList<>();
+    int stockValue;
+    @Override
+    public void add(IObserver ob) {
+        list.add(ob);
+    }
+
+    @Override
+    public void remove(IObserver ob) {
+        list.remove(ob);
+    }
+
+    @Override
+    public void notify2() {
+        for(IObserver o:list){
+            o.update();
+        }
+    }
+
+    @Override
+    public int getData() {
+        return stockValue;
+    }
+
+    @Override
+    public void setData(int stock) {
+        if(stockValue==0){
+            notify2();
+        }
+        stockValue+=stock;
+    }
+}
+
+
+******IObservable.java*****
+
+
+package ObserverDesignPattern.Observable;
+
+import ObserverDesignPattern.Observer.IObserver;
+
+public interface IObservable{
+    public void add(IObserver ob);
+    public void remove(IObserver ob);
+
+    public void notify2();
+    public int getData();
+
+    public void setData(int stock);
+}
+
+
+
+
+
+
+**********PhoneObservable.java****
+
+package ObserverDesignPattern.Observable;
+
+import ObserverDesignPattern.Observer.IObserver;
+import java.util.*;
+public class PhoneObservable implements  IObservable{
+    List<IObserver> list=new ArrayList<>();
+    int stockValue;
+    @Override
+    public void add(IObserver ob) {
+        list.add(ob);
+    }
+
+    @Override
+    public void remove(IObserver ob) {
+        list.remove(ob);
+    }
+
+    @Override
+    public void notify2() {
+        for(IObserver o:list){
+            o.update();
+        }
+    }
+
+    @Override
+    public int getData() {
+        return stockValue;
+    }
+
+    @Override
+    public void setData(int stock) {
+        if(stockValue==0){
+            notify2();
+        }
+        stockValue+=stock;
+    }
+}
+
+
+********/observer/IObserver.java*******
+
+
+package ObserverDesignPattern.Observer;
+
+public interface IObserver{
+    public void update();
+}
+
+
+*****UserObserverEmail.java*****
+
+package ObserverDesignPattern.Observer;
+
+import ObserverDesignPattern.Observable.IObservable;
+
+public class UserObserverEmail implements IObserver{
+    IObservable obj;
+    String email;
+    public UserObserverEmail(String email, IObservable obj){
+        this.obj=obj;
+        this.email=email;
+//       obj.add(obj);
+    }
+
+    @Override
+    public void update() {
+        System.out.println("User updated via Email "+ email);
+    }
+}
+
+
+**********UserObserverMobile.java*****
+
+
+package ObserverDesignPattern.Observer;
+
+import ObserverDesignPattern.Observable.IObservable;
+
+public class UserObserverMobile implements   IObserver{
+
+    IObservable obj;
+    String mobile;
+    public UserObserverMobile(String mobile, IObservable ob){
+        this.obj=ob;
+        this.mobile=mobile;
+//        obj.add(ob);
+    }
+    @Override
+    public void update() {
+        System.out.println("User updated via Phone\t"+mobile);
+
+    }
+}
+
+
+
+
