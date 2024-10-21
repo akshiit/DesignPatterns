@@ -1,0 +1,87 @@
+
+
+
+******IVehicleStrategy.java***
+
+package StrategyDesignPattern;
+
+public interface IVehicleStrategy {
+
+    public void drive();
+}
+
+
+*****NormalStrategy.java*******
+
+package StrategyDesignPattern;
+
+public class NormalStrategy implements IVehicleStrategy{
+    @Override
+    public void drive() {
+        System.out.println("I am from Normal Strategy");
+
+    }
+}
+
+
+*****OffroadingVehicle.java********
+
+package StrategyDesignPattern;
+
+public class OffroadingVehicle extends Vehicle {
+    public OffroadingVehicle(){
+        super(new SpecialStrategy());
+    }
+}
+
+
+
+******PassengerVehicle.java*****
+
+package StrategyDesignPattern;
+
+public class PassengerVehicle extends Vehicle{
+    public PassengerVehicle(){
+        super(new NormalStrategy());
+    }
+}
+
+*******SpecialStrategy.java****
+
+package StrategyDesignPattern;
+
+public class SpecialStrategy implements IVehicleStrategy{
+    
+    public void drive() {
+        System.out.println("I am from Special Strategy");
+                
+    }
+}
+
+
+****SportsVehicle.java*****
+
+package StrategyDesignPattern;
+
+public class SportsVehicle extends Vehicle{
+    public SportsVehicle(){
+        super(new SpecialStrategy());
+    }
+}
+
+
+****Vehicle.java****
+
+package StrategyDesignPattern;
+
+public class Vehicle {
+    IVehicleStrategy strategy;
+    Vehicle(IVehicleStrategy obj){
+        strategy=obj;
+    }
+
+    public void drive(){
+        strategy.drive();
+    }
+}
+
