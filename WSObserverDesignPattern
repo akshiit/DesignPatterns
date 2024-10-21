@@ -1,0 +1,106 @@
+****IWSObservable.java****
+
+package WSObserverDesignPattern.WSObservable;
+
+import WSObserverDesignPattern.WSObserver.IWSObserver;
+
+public interface IWSObservable {
+    public void add(IWSObserver obj);
+    public void remove(IWSObserver obj);
+    public void notify2();
+    public int getData();
+    public void setdata(int temp);
+}
+
+
+
+*******IWSObservableImpl****
+
+package WSObserverDesignPattern.WSObservable;
+
+import WSObserverDesignPattern.WSObserver.IWSObserver;
+import java.util.*;
+public class WSObservableImpl implements IWSObservable{
+    List<IWSObserver>list=new ArrayList<>();
+    int temp=9;
+    @java.lang.Override
+    public void add(IWSObserver obj) {
+        list.add(obj);
+    }
+
+    @java.lang.Override
+    public void remove(IWSObserver obj) {
+        list.remove(obj);
+    }
+
+    @java.lang.Override
+    public void notify2() {
+        for(IWSObserver ob:list){
+            ob.update();
+        }
+    }
+
+    @java.lang.Override
+    public int getData() {
+        return temp;
+    }
+
+    @java.lang.Override
+    public void setdata(int newTemp) {
+       if(temp!=newTemp){
+           temp=newTemp;
+           notify2();
+       }
+       else{
+           System.out.println("Temperature not changed  ");
+       }
+    }
+}
+
+
+*****TVScreenObserver****
+
+package WSObserverDesignPattern.WSObserver;
+
+import WSObserverDesignPattern.WSObservable.IWSObservable;
+
+public class TVScreenObserver implements IWSObserver{
+    IWSObservable obj;
+    public TVScreenObserver(IWSObservable ob){
+        obj=ob;
+    }
+    @java.lang.Override
+    public void update() {
+        System.out.print("\nTV Screen  temperature changed with temperature \t"+ obj.getData());
+    }
+}
+
+
+********MobileApplicationObserver****************
+
+
+package WSObserverDesignPattern.WSObserver;
+
+import WSObserverDesignPattern.WSObservable.IWSObservable;
+
+public class MobileApplicationObserver implements IWSObserver{
+    IWSObservable obj;
+    public MobileApplicationObserver(IWSObservable ob){
+        obj=ob;
+    }
+    @java.lang.Override
+    public void update() {
+        System.out.print("\nMobile Application temperature changed with temperature\t"+ obj.getData());
+    }
+}
+
+
+********IWSObserver********
+
+package WSObserverDesignPattern.WSObserver;
+
+public interface IWSObserver {
+    void update();
+}
+
+
